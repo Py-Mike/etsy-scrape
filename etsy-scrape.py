@@ -1,7 +1,8 @@
 #etsy-scrape.py
 #Written By: Py-Mike
 #Date: 4/28/2021
-#Description: A script that takes the JSON output from the Etsy api, parses it for the url containing the Full Size Images
+#Description: A script that takes the JSON output from the Etsy api, 
+#             parses it for the url containing the Full Size Images
 #             then downloads them to a specified path.
 
 import json                         #for parsing the JSON file
@@ -11,12 +12,15 @@ from urllib.parse import urlparse   #to parse the url
 
 #User Variables
 apikey = '<etsy api key>'
-shopname = ' <Name of Shop to backup>'
+shopname = '<Name of Shop to backup>'
 outputdirectory = '<c:\\test\\>' #Allows users to set a Directory for the Output
 
 for offset in range(0,600,100): #Iterates 5 times
     #Loads the api url and imports the data in JSON format
-    apiurl = "https://openapi.etsy.com/v2/shops/" + shopname + "/listings/active?method=GET&api_key=" + apikey + "&fields=title,url&limit=100&offset=" + str(offset) + "&includes=MainImage"
+    apiurl = "https://openapi.etsy.com/v2/shops/" + \
+        shopname + "/listings/active?method=GET&api_key=" + \
+        apikey + "&fields=title,url&limit=100&offset=" + \
+        str(offset) + "&includes=MainImage"
     response = requests.get(apiurl, allow_redirects=True)
     response.raise_for_status()
     listings = response.json()
